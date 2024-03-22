@@ -31,9 +31,11 @@ implemented as follows:
 
 ```solidity
 function getL1FeeUpperBound(uint256 unsignedTxSize) external view returns (uint256) {
-    int256 txSize = int256(unsignedTxSize) + 68;
     // txSize / 255 + 16 is the pratical fastlz upper-bound covers 99.99% txs.
-    int256 flzUpperBound = txSize + txSize / 255 + 16;
+    // Add 68 to both size values to account for unsigned tx:
+    int256 flzUpperBound = int256(unsignedTxSize) + int256(unsignedTxSize) / 255 + 16 + 68;
+    int256 txSize = int256(_unsignedTxSize) + 68;
+    
     uint256 feeScaled = baseFeeScalar() * 16 * l1BaseFee() + blobBaseFeeScalar() * blobBaseFee();
     int256 cost = costIntercept + costFastlzCoef * flzUpperBound + costTxSizeCoef * txSize;
     if (cost < 0) {
