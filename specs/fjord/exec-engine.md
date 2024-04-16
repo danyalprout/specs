@@ -26,17 +26,17 @@ l1CostSigned = (intercept + fastlzCoef*fastlzSize + txSizeCoef*txSize) * l1FeeSc
 l1Cost = uint256(max(0, l1CostSigned))
 ```
 
-| Input arg         | Type      | Description                                                       |
-|-------------------|-----------|-------------------------------------------------------------------|
-| `l1BaseFee`       | `uint256` | L1 base fee of the latest L1 origin registered in the L2 chain    |
-| `l1BlobBaseFee`   | `uint256` | Blob gas price of the latest L1 origin registered in the L2 chain |
-| `fastlzSize`      | `uint256` | Length of the FastLZ-compressed RLP-encoded signed tx             |
-| `txSize`          | `uint256` | Length of uncompressed RLP-encoded signed tx                      |
-| `l1BaseFeeScalar` | `uint32`  | L1 base fee scalar, scaled by `1e6`                               |
-| `l1BlobFeeScalar` | `uint32`  | L1 blob fee scalar, scaled by `1e6`                               |
-| `intercept`       | `int32`   | Intercept constant, scaled by `1e6` (can be negative)             |
-| `fastlzCoef`      | `int32`   | FastLZ coefficient, scaled by `1e6` (can be negative)             |
-| `txSizeCoef`      | `int32`   | Transaction size coefficient, scaled by `1e6` (can be negative)   |
+| Input arg       | Type      | Description                                                       |
+|-----------------|-----------|-------------------------------------------------------------------|
+| `l1BaseFee`     | `uint256` | L1 base fee of the latest L1 origin registered in the L2 chain    |
+| `l1BlobBaseFee` | `uint256` | Blob gas price of the latest L1 origin registered in the L2 chain |
+| `fastlzSize`    | `uint256` | Length of the FastLZ-compressed RLP-encoded signed tx             |
+| `txSize`        | `uint256` | Length of uncompressed RLP-encoded signed tx                      |
+| `baseFeeScalar` | `uint32`  | L1 base fee scalar, scaled by `1e6`                               |
+| `blobFeeScalar` | `uint32`  | L1 blob fee scalar, scaled by `1e6`                               |
+| `intercept`     | `int32`   | Intercept constant, scaled by `1e6` (can be negative)             |
+| `fastlzCoef`    | `int32`   | FastLZ coefficient, scaled by `1e6` (can be negative)             |
+| `txSizeCoef`    | `int32`   | Transaction size coefficient, scaled by `1e6` (can be negative)   |
 
 Where:
 

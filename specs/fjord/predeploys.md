@@ -25,7 +25,8 @@ A new method is introduced: `getL1FeeUpperBound(uint256)`. This method returns a
 for a given transaction size. It is provided for callers who wish to estimate L1 transaction costs in the
 write path, and is much more gas efficient than `getL1Fee`.
 
-The upper limit overhead is assumed to be `original/255+16`, borrowed from LZ4. According to historical data, this approach can encompass more than 99.99% of transactions.
+The upper limit overhead is assumed to be `original/255+16`, borrowed from LZ4. According to historical data, this
+approach can encompass more than 99.99% of transactions.
 
 implemented as follows:
 

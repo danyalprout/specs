@@ -19,7 +19,7 @@
 
 #### Fjord
 
-The Fjord hardfork activation block, contains the following transactions in this order:
+The Fjord hardfork activation block contains the following transactions, in this order:
 
 - L1 Attributes Transaction
 - User deposits from L1
@@ -58,7 +58,7 @@ Computed Address: 0xa919894851548179A0750865e7974DA599C0Fac7
 Verify `sourceHash`:
 
 ```bash
-❯ cast keccak $(cast concat-hex 0x0000000000000000000000000000000000000000000000000000000000000002 $(cast keccak "Fjord: Gas Price Oracle Deployment"))
+cast keccak $(cast concat-hex 0x0000000000000000000000000000000000000000000000000000000000000002 $(cast keccak "Fjord: Gas Price Oracle Deployment"))
 # 0x86122c533fdcb89b16d8713174625e44578a89751d96c098ec19ab40a51a8ea3
 ```
 
