@@ -22,7 +22,8 @@ The L1 cost is computed as:
 
 ```pseudocode
 l1FeeScaled = l1BaseFeeScalar*l1BaseFee*16 + l1BlobFeeScalar*l1BlobBaseFee
-l1CostSigned = (intercept + fastlzCoef*fastlzSize + txSizeCoef*txSize) * l1FeeScaled / 1e12
+estimatedLen = intercept + fastlzCoef*fastlzSize 
+l1CostSigned = max(71, estimatedLen) * l1FeeScaled / 1e12
 l1Cost = uint256(max(0, l1CostSigned))
 ```
 
@@ -36,15 +37,12 @@ l1Cost = uint256(max(0, l1CostSigned))
 | `blobFeeScalar` | `uint32`  | L1 blob fee scalar, scaled by `1e6`                               |
 | `intercept`     | `int32`   | Intercept constant, scaled by `1e6` (can be negative)             |
 | `fastlzCoef`    | `int32`   | FastLZ coefficient, scaled by `1e6` (can be negative)             |
-| `txSizeCoef`    | `int32`   | Transaction size coefficient, scaled by `1e6` (can be negative)   |
 
 Where:
 
 - the `intercept` is hard-coded as `-27_321_890`
 
 - the `fastlzCoef` is hard-coded as `1_031_462`
-
-- the `txCoef` is hard-coded as `-88_664`
 
 - the `l1CostSigned` calculation is an unlimited precision signed integer computation, with the result in Wei and
   having `int256` range.
@@ -97,13 +95,12 @@ print(f'model: {model.intercept_} {model.coef_}')
 As an example, we generated a dataset from all transactions on Optimism Mainnet in October 2023,
 and the resulting linear regression was:
 
-`-27.321890037208703 + 1.03146206*fastlzSize - 0.08866427*txSize`
+`-27.321890037208703 + 1.03146206*fastlzSize`
 
 Scaling these values by `1e6` gives the constants used in the L1-Cost fee estimator:
 
 - `intercept = -27_321_890`
 - `fastlzCoef = 1_031_462`
-- `txCoef = -88_664`
 
 Note that the linear regression takes into account the current compression ratio, so the
 scalars `l1BaseFeeScalar` and `l1BlobFeeScalar` should be adjusted to account for any previous
