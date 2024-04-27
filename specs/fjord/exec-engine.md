@@ -8,6 +8,7 @@
   - [L1-Cost fees (L1 Fee Vault)](#l1-cost-fees-l1-fee-vault)
     - [Fjord L1-Cost fee changes (FastLZ estimator)](#fjord-l1-cost-fee-changes-fastlz-estimator)
       - [L1-Cost linear regression details](#l1-cost-linear-regression-details)
+  - [L1 Gas Usage Estimation](#l1-gas-usage-estimation)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -60,3 +61,13 @@ the dependent variable and `fastlzSize` as the independent variable.
 We generated a dataset from two weeks of post-Ecotone transactions on Optimism Mainnet, as we found that was
 the most representative of performance across multiple chains and time periods. More details on the linear regression
 and datasets used can be found in this [repository](https://github.com/roberto-bayardo/compression-analysis/tree/main).
+
+### L1 Gas Usage Estimation
+
+The `L1GasUsed` property on the transaction receipt is updated to take into account the improvement in
+[compression estimation](./exec-engine.md#fees) accuracy. The value will be calculated by
+multiplying the `estiamtedSize` of the transaction from the above L1 cost formula by 16. The value of 16, assumes most
+of the bytes in the compressed data are non-zero.
+
+The `L1GasUsed` property will be deprecated. Due to it not accurately calculating the L1 gas used
+by a transaction. Users can continue to use the `L1Fee` field to retrieve the L1 fee for a given transaction.
