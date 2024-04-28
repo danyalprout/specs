@@ -39,7 +39,7 @@ having `uint256` range. The values in this computation, are as follows:
 | `blobFeeScalar`      | `uint32`  | L1 blob fee scalar, scaled by `1e6`                               | varies, L2 configuration |
 | `intercept`          | `int32`   | Intercept constant, scaled by `1e6` (can be negative)             | -42_585_600              |
 | `fastlzCoef`         | `uint32`  | FastLZ coefficient, scaled by `1e6`                               | 836_500                  |
-| `minTransactionSize` | `uint32`  | A lower bound on transaction size (71 bytes), scaled by `1e6`     | 71_000_000               |
+| `minTransactionSize` | `uint32`  | A lower bound on transaction size, in bytes                       | 71                       |
 
 Previously, `baseFeeScalar` and `blobFeeScalar` were used to encode the compression ratio, due to the inaccuracy of
 the L1 cost function. However, the new cost function takes into account the compression ratio, so these scalars should
